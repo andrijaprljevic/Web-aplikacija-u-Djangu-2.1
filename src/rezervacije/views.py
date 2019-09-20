@@ -5,7 +5,7 @@ from django.db.models import Exists, OuterRef, Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.dateparse import parse_date
 
-#from .forms import PrvaForm, DrugaForm
+from .forms import RezervirajForm
 from .models import (
 	Lokacija,
 	Stol,
@@ -53,6 +53,10 @@ def druga_rezervacija_view(request):
 
 	if bb3 >= ee3:
 		return redirect('greska')
+	if bb3 < 8 or bb3 > 22:
+		return redirect('greska')
+	if ee3 < 9 or ee3 > 23:
+		return redirect('greska')
 
 	grad = Lokacija.objects.get(id = grad_kljuc)
 	datum_rez = parse_date(datum_string)
@@ -83,17 +87,14 @@ def druga_rezervacija_view(request):
 def zadnja_rezervacija_view(request):
 	tittle = 'Zadnja'
 	datum_text = request.POST.get('post_datum2', None)
-	stolice = request.POST.get('post_stolice2', None)
+	#stolice = request.POST.get('post_stolice2', None)
 	pocetak = request.POST.get('post_pocetak2', None)
 	krajj = request.POST.get('post_kraj2', None)
-	za_kljuc_grada = request.POST.get('post_id_grada2', None)
+	#za_kljuc_grada = request.POST.get('post_id_grada2', None)
 	za_stola = request.POST.get('post_id_stola', None)
-	if datum_text == None or stolice == None or pocetak == None or krajj == None or za_kljuc_grada == None or za_stola == None:
+	if datum_text == None or pocetak == None or krajj == None or za_stola == None:
 		return redirect('greska')
 
-	pravi_datum = parse_date(datum_text)
-	location = Lokacija.objects.get(id = za_kljuc_grada)
-	pravi_stol = Stol.objects.get(id = za_stola)
 	korisnik = request.user
 
 	end1 = krajj
@@ -103,26 +104,46 @@ def zadnja_rezervacija_view(request):
 	end3 = int(end2)
 	beg3 = int(beg2)
 
+	if beg3 < 8 or beg3 > 22:
+		return redirect('greska')
+	if end3 < 9 or end3 > 23:
+		return redirect('greska')
+
 	if end3 > beg3:
-		ako_postoji = Rezervacija.objects.filter(
-			korisnik = korisnik,
-			datum_rezervacije = pravi_datum,
-			pocetak_rezervacije = pocetak,
-			kraj_rezervacije = krajj
-			)
-		ako_postoji_broj = ako_postoji.count()
-		if ako_postoji_broj > 0:
-			return redirect('greska')
-		else:
-			kreiranje_rez = Rezervacija.objects.create(
-				korisnik = korisnik,
-				stol = pravi_stol,
-				datum_rezervacije = pravi_datum,
-				pocetak_rezervacije = pocetak,
-				kraj_rezervacije = krajj
-				)
-			messages.success(request, ('Rezervacija je uspjela!'))
-			return redirect('profil')
+		if request.method == "POST":
+			form = RezervirajForm(request.POST)
+			if form.is_valid():
+				datum_rezervacije99 = form.cleaned_data.get('post_datum2')
+				promjeni_datum = parse_date(datum_rezervacije99)
+				uhvati_stol_kljuc = form.cleaned_data.get('post_id_stola')
+				uhvati_stol = get_object_or_404(Stol, id = uhvati_stol_kljuc)
+
+				rezervacije_kor = Rezervacija.objects.filter(korisnik = korisnik)
+				broji_rez = rezervacije_kor.count()
+				if broji_rez > 2:
+					messages.warning(request, ('Mozete maksimalno imati tri rezervacije.'))
+					return redirect('home')
+
+				ako_postoji = Rezervacija.objects.filter(
+					korisnik = korisnik,
+					stol = uhvati_stol,
+					datum_rezervacije = promjeni_datum,
+					pocetak_rezervacije = form.cleaned_data.get('post_pocetak2'),
+					kraj_rezervacije = form.cleaned_data.get('post_kraj2')
+					)
+				ako_postoji_broj = ako_postoji.count()
+				if ako_postoji_broj > 0:
+					return redirect('greska')
+
+				kreiranje_rez = Rezervacija.objects.create(
+					korisnik = korisnik,
+					stol = uhvati_stol,
+					datum_rezervacije = promjeni_datum,
+					pocetak_rezervacije = form.cleaned_data.get('post_pocetak2'),
+					kraj_rezervacije = form.cleaned_data.get('post_kraj2')
+					)
+				messages.success(request, ('Rezervacija je uspjela!'))
+				return redirect('profil')
 
 	return redirect('greska')
 
