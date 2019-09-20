@@ -1,0 +1,57 @@
+{% extends "baza.html" %}
+{% load static %}
+{% block za_vise_css %}
+<style>
+.za_vina{
+	max-height: 500px;
+	max-width: 200px;
+}
+.za_jela{
+	max-height: 300px;
+	max-width: 300px;
+}
+.nema_slike{
+	max-height: 200px;
+	max-width: 200px;
+}
+</style>
+{% endblock %}
+{% block selected %}
+	<li><a href="{% url 'home' %}">Pocetna</a></li>
+	<li><a href="{% url 'o_nama' %}">O nama</a></li>
+	{% if object_detalj.vrsta == "Vino" %}
+	<li><a href="{% url 'jelovnik' %}">Jelovnik</a></li>
+	<li class="selected"><a href="{% url 'vina' %}">Vina</a></li>
+	{% else %}
+	<li class="selected"><a href="{% url 'jelovnik' %}">Jelovnik</a></li>
+	<li><a href="{% url 'vina' %}">Vina</a></li>
+	{% endif %}
+	<li><a href="{% url 'prva' %}">Rezervacija</a></li>
+	<li><a href="{% url 'email' %}">Kontakt</a></li>
+{% endblock %}
+{% block informacije %}
+	<p>Za vise informacija kliknite na link ispod.<br/><a href="{% url 'kontakt' %}">Procitaj vise</a></p>
+{% endblock %}
+{% block sredina %}
+<div id="content">
+	<h1>{{ tittle }}</h1>
+	<br>
+	<br>
+	{% if not object_detalj.image %}
+	<span class="left" ><img class="nema_slike" src="{% static 'no_image.jpg' %}" alt="image"/></span>
+	{% else %}
+		{% if object_detalj.vrsta == "Vino" %}
+		<span class="left" ><img class="za_vina" src="{{ object_detalj.image.url }}" alt="image"/></span>
+		{% else %}
+		<span class="left" ><img class="za_jela" src="{{ object_detalj.image.url }}" alt="image"/></span>
+		{% endif %}
+	{% endif %}
+	<h2 style="color: #4B0082;">Naziv: <b><i>{{ object_detalj.naziv }}</i></b></h2>
+	{% if object_detalj.sastojci is None %}
+	<br>
+	{% else %}
+	<p>{{ object_detalj.sastojci }}</p>
+	{% endif %}
+	<h3>Cijena: {{ object_detalj.cijena }}</h3>
+</div>
+{% endblock %}

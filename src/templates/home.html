@@ -1,0 +1,113 @@
+{% extends "baza.html" %}
+{% load static %}
+{% block za_vise_css %}
+<style>
+.poruka{
+	height: 50px;
+	background-color: #FA8072;
+	position:relative;
+	vertical-align:middle;
+	border-radius: 25px;
+}
+</style>
+{% endblock %}
+{% block selected %}
+	<li class="selected"><a href="{% url 'home' %}">Pocetna</a></li>
+	<li><a href="{% url 'o_nama' %}">O nama</a></li>
+	<li><a href="{% url 'jelovnik' %}">Jelovnik</a></li>
+	<li><a href="{% url 'vina' %}">Vina</a></li>
+	<li><a href="{% url 'prva' %}">Rezervacija</a></li>
+	<li><a href="{% url 'email' %}">Kontakt</a></li>
+{% endblock %}
+{% block informacije %}
+	<p>Za vise informacija kliknite na link ispod.<br/><a href="{% url 'kontakt' %}">Procitaj vise</a></p>
+{% endblock %}
+{% block sredina %}
+	<div id="content">
+		<h1>Dobrodošli na našu web stranicu!</h1>
+		{% if messages %}
+			<br>
+			<ul class="messages">
+    			{% for message in messages %}
+    			<div class="poruka"><li style="color: black; position:absolute; top:30%; left: 20%; font-weight: bold;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li><div>
+    			{% endfor %}
+    		</ul><br>
+    	{% endif %}
+		<div class="slideshow-container">
+			<div class="mySlides fade">
+				<div class="numbertext">1 / 6</div>
+				<img src="{% static 'img1.jpg' %}" style="width:100%">
+				<div class="text">Restoran Maslina</div>
+			</div>
+			<div class="mySlides fade">
+				<div class="numbertext">2 / 6</div>
+				<img src="{% static 'img2.jpg' %}" style="width:100%">
+				<div class="text">Restoran Maslina</div>
+			</div>
+			<div class="mySlides fade">
+				<div class="numbertext">3 / 6</div>
+				<img src="{% static 'img3.jpg' %}" style="width:100%">
+				<div class="text">Restoran Maslina</div>
+			</div>
+			<div class="mySlides fade">
+				<div class="numbertext">4 / 6</div>
+				<img src="{% static 'img4.jpg' %}" style="width:100%">
+				<div class="text">Restoran Maslina</div>
+			</div>
+			<div class="mySlides fade">
+				<div class="numbertext">5 / 6</div>
+				<img src="{% static 'img5.jpg' %}" style="width:100%">
+				<div class="text">Restoran Maslina</div>
+			</div>
+			<div class="mySlides fade">
+				<div class="numbertext">6 / 6</div>
+				<img src="{% static 'img6.jpg' %}" style="width:100%">
+				<div class="text">Restoran Maslina</div>
+			</div>
+		</div>
+		<br>
+		<div style="text-align:center">
+			<span class="dot"></span> 
+			<span class="dot"></span> 
+			<span class="dot"></span>
+			<span class="dot"></span>
+			<span class="dot"></span>
+			<span class="dot"></span>  
+		</div>
+<script>
+var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+	var i;
+	var slides = document.getElementsByClassName("mySlides");
+	var dots = document.getElementsByClassName("dot");
+	for (i = 0; i < slides.length; i++) {
+		slides[i].style.display = "none";  
+	}
+	slideIndex++;
+	if (slideIndex > slides.length) {slideIndex = 1}    
+	for (i = 0; i < dots.length; i++) {
+		dots[i].className = dots[i].className.replace(" active", "");
+	}
+	slides[slideIndex-1].style.display = "block";  
+	dots[slideIndex-1].className += " active";
+	setTimeout(showSlides, 2000); // Change image every 2 seconds
+}
+</script>
+		<h2>Restoran Maslina pravo je mjesto za sve ljubitelje vrhunske hrane i kvalitetnih vina.</h2>
+		<h3>Siroka ponuda jela i kvalitetnih vina u Nasem restoranu, uz <b>ljubazno osoblje</b> osjecati ce te se kao kod <i>kuce</i> </h3>
+		<img src="{% static 'jelo1.jpg' %}" height="120" width="200"/><img src="{% static 'jelo3.jpg' %}" height="120" width="200"/><img src="{% static 'jelo4.jpg' %}" height="120" width="200"/>
+		<img src="{% static 'jelo6.jpg' %}" height="300" width="600"/>
+		<h2>Dnevna ponuda <i>Restoran MASLINA</i></h2>
+		{% for qs in qs_sve %}
+		<span class="left" ><img height="120" width="200" src="{{ qs.image.url }}" alt="medaljoni" /></span>
+		<h5>Dnevna ponuda {{ forloop.counter }}:</h5>
+		<h4>{{ qs.naziv }}</h4>
+		<p>{{ qs.sastojci }}</p>
+		<h3>Cijena: {{ qs.cijena }}</h3>
+		<br>
+		{% endfor %}
+		<h3>Za sve informacije javite nam se <a href="{% url 'email' %}">ovdje.</a></h3>
+	</div>
+	{% endblock %}

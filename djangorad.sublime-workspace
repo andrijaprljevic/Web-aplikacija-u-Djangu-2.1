@@ -1,0 +1,419 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"max",
+				"max-width\tproperty"
+			],
+			[
+				"re",
+				"request"
+			],
+			[
+				"h",
+				"height\tproperty"
+			],
+			[
+				"wi",
+				"width\tproperty"
+			],
+			[
+				"background-c",
+				"background-color\tproperty"
+			],
+			[
+				"im",
+				"image"
+			],
+			[
+				"IM",
+				"import"
+			],
+			[
+				"s",
+				"settings"
+			],
+			[
+				"u",
+				"urlpatterns"
+			],
+			[
+				"f",
+				"from"
+			],
+			[
+				"rez",
+				"rez_koris"
+			],
+			[
+				"kor",
+				"korisnik"
+			],
+			[
+				"Password",
+				"PasswordChangeForm"
+			],
+			[
+				"us",
+				"user"
+			],
+			[
+				"c",
+				"context"
+			],
+			[
+				"da",
+				"datum_rezervacije"
+			],
+			[
+				"P",
+				"PrvaForm"
+			],
+			[
+				"broj_",
+				"broj_stola"
+			],
+			[
+				"lo",
+				"Lokacija"
+			],
+			[
+				"r",
+				"raise"
+			],
+			[
+				"Lo",
+				"Lozinka"
+			],
+			[
+				"fo",
+				"forms"
+			],
+			[
+				"korisn",
+				"Korisnik"
+			],
+			[
+				"au",
+				"authenticate"
+			],
+			[
+				"se",
+				"self"
+			],
+			[
+				"mar",
+				"margin-top\tproperty"
+			],
+			[
+				"fon",
+				"font-size\tproperty"
+			],
+			[
+				"padd",
+				"padding-top\tproperty"
+			],
+			[
+				"ali",
+				"align-items\tproperty"
+			],
+			[
+				"ver",
+				"vertical-align\tproperty"
+			],
+			[
+				"boe",
+				"border-bottom\tproperty"
+			],
+			[
+				"pad",
+				"padding-bottom\tproperty"
+			],
+			[
+				"te",
+				"text-align\tproperty"
+			],
+			[
+				"floa",
+				"float\tproperty"
+			],
+			[
+				"l",
+				"Lozinke"
+			],
+			[
+				"for",
+				"form"
+			],
+			[
+				"E",
+				"email"
+			],
+			[
+				"F",
+				"from"
+			],
+			[
+				"cl",
+				"cleaned_data"
+			],
+			[
+				"fi",
+				"first_name"
+			],
+			[
+				"ob",
+				"objects"
+			],
+			[
+				"mo",
+				"mostarski_i_siroki"
+			],
+			[
+				"mos",
+				"mostarski"
+			],
+			[
+				"m",
+				"mjesec"
+			],
+			[
+				"o",
+				"obj2"
+			],
+			[
+				"broj_sto",
+				"broj_stolica"
+			],
+			[
+				"L",
+				"LokacijaAdmin"
+			],
+			[
+				"S",
+				"Stol"
+			],
+			[
+				"broj_st",
+				"broj_stolica"
+			],
+			[
+				"B",
+				"broj_stolica"
+			],
+			[
+				"i",
+				"ime_grada"
+			],
+			[
+				"d",
+				"datum_rezervacije"
+			],
+			[
+				"broj",
+				"broj_stola"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/RB Computer/Dev/djangorad",
+		"/C/Users/RB Computer/Dev/djangorad/src",
+		"/C/Users/RB Computer/Dev/djangorad/src/sendemail"
+	],
+	"file_history":
+	[
+		"/C/Users/RB Computer/Dev/djangorad/src/sendemail/urls.py",
+		"/C/Users/RB Computer/Dev/djangorad/src/profili/views.py",
+		"/C/Users/RB Computer/Dev/djangorad/src/rezervacije/views.py",
+		"/C/Users/RB Computer/Dev/djangorad/src/projekt/settings.py",
+		"/C/Users/RB Computer/Dev/djangorad/src/jelovnici/models.py",
+		"/C/Users/RB Computer/Dev/djangorad/src/profili/templates/profili/change_password.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/jelovnici/views.py",
+		"/C/Users/RB Computer/Dev/djangorad/src/sendemail/views.py",
+		"/C/Users/RB Computer/Dev/djangorad/src/rezervacije/models.py",
+		"/C/Users/RB Computer/Dev/djangorad/src/projekt/urls.py",
+		"/C/Users/RB Computer/Dev/djangorad/src/profili/templates/profili/forma.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/rezervacije/templates/rezervacije/rezervacija1.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/templates/email.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/templates/home.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/templates/o_nama.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/templates/jelovnik.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/templates/vina.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/sendemail/forms.py",
+		"/C/Users/RB Computer/Dev/djangorad/src/templates/baza.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/templates/informacije.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/templates/detalji.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/profili/forms.py",
+		"/C/Users/RB Computer/Dev/djangorad/src/profili/templates/profili/profil.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/rezervacije/templates/rezervacije/rezervacija2.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/jelovnici/admin.py",
+		"/C/Users/RB Computer/Dev/djangorad/src/rezervacije/admin.py",
+		"/C/Users/RB Computer/Dev/djangorad/src/rezervacije/templates/rezervacije/greska.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/profili/templates/profili/azuriraj.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/rezervacije/templates/rezervacije/rezervacija3.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/profili/templates/profili/prijava.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/rezervacije/forms.py",
+		"/C/Users/RB Computer/Dev/djangorad/src/templates/test.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/templates/test2.html",
+		"/C/Users/RB Computer/Dev/djangorad/src/profili/templates/profili/registracija.html",
+		"/C/Users/RB Computer/Dev/djangorad/djangorad.sublime-project"
+	],
+	"find":
+	{
+		"height": 29.6
+	},
+	"find_in_files":
+	{
+		"height": 104.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"%}\"/>\n",
+			"%}\"/>"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 29.6
+	},
+	"input":
+	{
+		"height": 43.2
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "djangorad.sublime-project",
+	"replace":
+	{
+		"height": 56.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 211.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -1,0 +1,123 @@
+{% extends "profili/forma.html" %}
+{% block stilovi %}
+{% load static %}
+	<style>
+	#rezerviraj_tipka{
+		padding: 10px;
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+	#rezerviraj_tipka:hover{
+		padding: 10px;
+		background-color: rgba(0, 0, 0, 0.8);
+	}
+	.container-fluid{
+		color: #bbb;
+		background-color: rgba(0, 0, 0, 0.7);
+		padding: 20px;
+		width: 110%;
+	}
+	table, th, td {
+		border: 2px solid white;
+		
+		text-align: center;
+	}
+	table{
+		width: 100%;
+		height:100%;
+	}
+	.vertical-center {
+		min-height: 100%;
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		background-image: url("{% static 'rezervacija_restoran.png' %}");
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-color: #cccccc;
+	}
+	</style>
+{% endblock %}
+{% block rez_forma %}
+{% if zbroj_qs > 0 %}
+<br>
+<div class="container">
+<div class="row">
+	<div class="col-sm-4"></div><div class="col-sm-4"><div class="col-sm-4"></div>
+		<div class="container-fluid">
+			<div class="row-fluid" >
+			<div class="form-horizontal">
+	<table>
+	<tr><th colspan="2" style="height: 30px; color:white;"><b>Slobodni stolovi - {{ datum_rez }}</b></th><tr>
+	{% for jedan_qs in pravi_qs %}
+		<tr>
+		<td style="color:white;"><b>{{ forloop.counter }}.</b></td>
+		<td style="color:#ffffff; padding-top:10px;"><b>Stol: {{ jedan_qs.broj_stola }}</b></p></td>
+		</tr>
+	{% endfor %}
+	</tr>
+	</table>
+			</div>
+	</div></div></div></div>
+	
+	
+	<br><br>
+	
+	<div>
+		<div class="container" style="margin-top: 10%;">
+
+			<div class="row" style="margin-bottom: 30px;">
+				<div class="col-md-12">
+					<button type="button" class="btn btn-primary btn-lg pull-center" id="rezerviraj_tipka" data-toggle="modal" data-target="#rezervirajModal"><i class="fa fa-floppy-o" aria-hidden="true"></i><b>Rezerviraj</b></button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal fade customModal" id="rezervirajModal" tabindex="-1" role="dialog" aria-labelledby="rezervirajModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+
+			<form class="form-horizontal" action="{% url 'zadnja' %}" method="post">
+			{% csrf_token %}
+				<div class="modal-body">
+					<h1>Odaberite broj stola</h1>
+
+					<input type="hidden" name="post_datum2" value="{{ datum_rez }}">
+					<input type="hidden" name="post_stolice2" value="{{ br_stolica }}">
+					<input type="hidden" name="post_pocetak2" value="{{ poc }}">
+					<input type="hidden" name="post_kraj2" value="{{ kraj }}">
+					<input type="hidden" name="post_id_grada2" value="{{ grad.id }}">
+
+					<div class="form-group">
+						<label for="broj_stola" class="control-label col-sm-2">Izaberite broj stola</label>
+						<div class="col-sm-10">
+							<select class="form-control" id="broj_stola" name="post_id_stola">
+							{% for jedan_qss in pravi_qs %}
+								<option value="{{ jedan_qss.id }}">Stol: {{ jedan_qss.broj_stola }}</option>
+							{% endfor %}
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Odustani</button>
+					<button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true" style="padding: 5px;"></i>Spremi</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% else %}
+<br>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="alert alert-danger" role="alert">Žao mi je, ali nema slobodnih stolova!</div> <br>
+			<div class="btn btn-primary"><a style="color: white;" href="{% url 'home' %}">Glavna stranica</a></div>
+		</div>
+	</div>
+</div>
+{% endif %}
+{% endblock %}

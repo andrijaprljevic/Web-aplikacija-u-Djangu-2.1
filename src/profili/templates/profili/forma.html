@@ -1,0 +1,106 @@
+<!DOCUMENT html>
+{% load crispy_forms_tags %}
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{ tittle }}</title>
+	{% load static %}
+	<link type="text/css" href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+	<link type="text/css" href="{% static 'css/mojcss.css' %}" rel="stylesheet">
+	<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/script.js' %}"></script>
+	{% block stilovi %}
+	<style>
+		.alert{
+			font-weight: bold !important;
+		} 
+		.vertical-center {
+			min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+			min-height: 100vh; /* These two lines are counted as one :-)       */
+			
+			display: flex;
+			align-items: center;
+			background-image: url("{% static 'cover.jpg' %}");
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-color: #cccccc;
+		}
+		.controls{
+			
+			overflow: hidden;
+		}
+		#id_username, #id_email, #id_password1, #id_password2{
+			float: left;
+			color: #483D8B;
+		}
+		#error_1_id_username, #error_1_id_email, #error_1_id_password2{
+			float: left;
+			
+			margin: 10px;
+		}
+		h2{
+			font-size: 300% !important;
+		}
+		h2, label{
+			color: #4B0082;
+			font-weight: bold !important;
+			font-style: italic !important;
+			font-size: 200%;
+			font-family: Georgia;
+			margin: 5px;
+		}
+		.btn{
+			background-color: #008080;
+			color: white;
+			font-weight: bold;
+			margin-top: 5%;
+			font-size: 150%;
+		}
+		.btn:hover{
+			background-color: #6495ED;
+			color: white;
+			color: #4B0082;
+		}
+		.col-md-5{
+			width: 50%;
+			background-color: rgba(0, 0, 0, 0.2);
+			border-radius: 75px;
+		}
+		.container{
+			margin-left: 33%;
+		}
+	</style>
+	{% endblock %}
+	{% block extra_style %}
+	{% endblock %}
+</head>
+<body>
+<div class="vertical-center">
+	{% block rez_forma %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-5">
+
+				<div class="form-group">
+					<h2>{{ tittle }}</h2><br>
+					<form method="post">
+						{% csrf_token %}
+						{{ form|crispy }}
+						<div class="form-group">
+							<div class="col-sm-offset-0 col-sm-12">
+								<button type="submit" class="btn btn-default">Pošalji</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	{% endblock %}
+</div>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html lang="hr">
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1250">
+	<title>{{ tittle }}</title>
+	<meta name="description" content="website description" />
+	<meta name="keywords" content="website keywords, website keywords" />
+	<meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+	{% load static %}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+<style>
+.alert{
+	background-color: green;
+}
+body, html {
+	height: 100%;
+	margin: 0;
+	}
+
+.bg {
+	/* The image used */
+	background-image: url("{% static 'cover.jpg' %}");
+	/* Full height */
+	height: 100%; 
+	/* Center and scale the image nicely */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+</style>
+{% block za_vise_css %}
+{% endblock %}
+</head>
+<body>
+	<div id="main">
+		<div id="header">
+			<div id="logo">
+				<div id="logo_text">
+					<!-- class="logo_colour", allows you to change the colour of the text -->
+					<h1><a href="{% url 'home' %}">Restoran<span class="logo_colour">Maslina</span></a></h1>
+					<h2>Web aplikacija za rezervaciju stolova u restoranu.</h2>
+				</div>
+			</div>
+			<div id="menubar">
+				<ul id="menu">
+					{% block selected %}
+					<p>za selected</p>
+					{% endblock %}
+					{% if request.user.is_authenticated %}
+					<li><div class="dropdown">
+						<button style="min-width: 100px;" onclick="drop_funkcija()" class="dropbtn"><i style="color: white;" class="fa fa-user"></i> {{ request.user.username }} <i class="fa fa-caret-down"></i></button>
+						<div id="myDropdown" class="dropdown-content">
+							<a href="{% url 'profil' %}"><i style="color: white;" class="fa fa-group"></i> Profil</a>
+							{% if request.user.is_staff %}
+							<a href="/admin"><i style="color: white;" class="fa fa-unlock"></i> Admin</a>
+							{% endif %}
+							<a href="{% url 'odjava' %}"><i style="color:white;" class="fa fa-sign-out"></i> Odjava</a>
+						</div>
+					</div>
+					</li>
+					{% else %}
+					<li><a href="{% url 'registracija' %}">Registracija</a></li>
+					<li><a href="{% url 'prijava' %}">Prijava</a></li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+		<div class="bg">
+			<div id="site_content">
+				<div id="sidebar_container">
+					<div class="sidebar">
+						<div class="sidebar_item">
+							<h2><b>INFORMACIJE</b></h2>
+							<h3>Radno Vrijeme:</h3>
+							<h4>Ponedjeljak do petka:</h4>
+							<h3>08:00h - 23:00h </h3>
+							<h4>Subota i nedjelja: </h4>
+							<h3>08:00h - 23:00h </h3>
+							{% block informacije %}
+							{% endblock %}
+						</div>
+					</div>
+					<div class="sidebar">
+						<div class="sidebar_item">
+							<h3>Restoran Maslina</h3>
+							<ul>
+								<li><a href="{% url 'jelovnik' %}">JELOVNIK</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="sidebar">
+						<div class="sidebar_item">
+							<h3>Ponuda vina</h3>
+							<div class="container">
+								<img src="{% static 'vino.jpg' %}" alt="Vina" class="image" height="120" width="180">
+								<div class="overlay">
+									<div class="text"><a href="{% url 'vina' %}">Pogledaj</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% block sredina %}
+				{% endblock %}
+			</div>
+		</div>
+		<div id="footer">
+			<p><a href="{% url 'home' %}">Pocetna</a> | <a href="{% url 'o_nama' %}">O nama</a> | <a href="{% url 'prva' %}">Rezervacija</a> | <a href="{% url 'email' %}">Kontakt</a></p>
+			<p>Autor: ANDRIJA PRLJEVIC | Mentor: TOMISLAV VOLARIC</p>
+		</div>
+	</div>
+<script>
+function drop_funkcija() {
+	document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+	if (!event.target.matches('.dropbtn')) {
+		var dropdowns = document.getElementsByClassName("dropdown-content");
+		var i;
+		for (i = 0; i < dropdowns.length; i++) {
+			var openDropdown = dropdowns[i];
+			if (openDropdown.classList.contains('show')) {
+				openDropdown.classList.remove('show');
+			}
+		}
+	}
+}
+</script>
+</body>
+</html>

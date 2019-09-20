@@ -1,0 +1,92 @@
+{% extends "baza.html" %}
+{% block za_vise_css %}
+<style>
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+	border: 1px solid #ddd;
+}
+th, td {
+	text-align: left;
+	padding: 16px;
+}
+tr:nth-child(even) {
+	background-color: #f2f2f2
+}
+</style>
+{% endblock %}
+{% block selected %}
+	<li><a href="{% url 'home' %}">Pocetna</a></li>
+	<li><a href="{% url 'o_nama' %}">O nama</a></li>
+	<li class="selected"><a href="{% url 'jelovnik' %}">Jelovnik</a></li>
+	<li><a href="{% url 'vina' %}">Vina</a></li>
+	<li><a href="{% url 'prva' %}">Rezervacija</a></li>
+	<li><a href="{% url 'email' %}">Kontakt</a></li>
+{% endblock %}
+{% block informacije %}
+	<p>Za vise informacija kliknite na link ispod.<br/><a href="{% url 'kontakt' %}">Procitaj vise</a></p>
+{% endblock %}
+{% block sredina %}
+<div id="content">
+<h1> JELOVNIK</h1>
+
+<table>
+
+	<tr>
+		<th>MESNA JELA</th>
+		<th></th>
+		<th>CIJENA</th>
+	</tr>
+	{% for qs in qs_mesna %}
+	<tr>
+		<td><a href="/detalji/{{ qs.id }}">{{ qs.naziv }} </a><i>{{ qs.sastojci }}</i></td>
+		<td></td>
+		<td>{{ qs.cijena }}</td>
+	</tr>
+	{% endfor %}
+	<tr><td></td><td></td><td></td></tr>
+
+	<tr>
+		<th>PIZZA</th>
+		<th></th>
+		<th>CIJENA</th>
+	</tr>
+	{% for qs in qs_pizza %}
+	<tr>
+		<td><a href="/detalji/{{ qs.id }}">{{ qs.naziv }} </a><i>{{ qs.sastojci }}</i></td>
+		<td></td>
+		<td>{{ qs.cijena }}</td>
+	</tr>
+	{% endfor %}
+	<tr><td></td><td></td><td></td></tr>
+
+		<tr>
+		<th>RIZOTA</th>
+		<th></th>
+		<th>CIJENA</th>
+	</tr>
+	{% for qs in qs_rizota %}
+	<tr>
+		<td><a href="/detalji/{{ qs.id }}">{{ qs.naziv }} </a><i>{{ qs.sastojci }}</i></td>
+		<td></td>
+		<td>{{ qs.cijena }}</td>
+	</tr>
+	{% endfor %}
+	<tr><td></td><td></td><td></td></tr>
+
+			<tr>
+		<th>SALATE</th>
+		<th></th>
+		<th>CIJENA</th>
+	</tr>
+	{% for qs in qs_salate %}
+	<tr>
+		<td><a href="/detalji/{{ qs.id }}">{{ qs.naziv }} </a><i>{{ qs.sastojci }}</i></td>
+		<td></td>
+		<td>{{ qs.cijena }}</td>
+	</tr>
+	{% endfor %}
+</table>
+</div>
+{% endblock %}

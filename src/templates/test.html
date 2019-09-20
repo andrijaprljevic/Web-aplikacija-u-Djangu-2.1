@@ -1,0 +1,59 @@
+<!DOCUMENT html>
+<html>
+<head>
+	<h2>TEST HTML</h2>
+</head>
+<body>
+	<p>{{ objekt.stol }}</p>
+	<p>{{ objekt.timestamp }}</p>
+	<p>{{ ob1.stol.broj_stola }}</p>
+	<p>{{ ob1.stol.lokacija.adresa_restorana }}</p>
+
+	<p>ob1: {{ ob1.datum_rezervacije }}</p>
+	<p>ob2: {{ ob2.datum_rezervacije }}</p>
+	<p>danas: {{ dan }}</p>
+	<p>danas bez nula: {{ bez_nule }}</p>
+	<p>sutra: {{ sutra }}</p>
+	<p>dva mjeseca: {{ mjesec }}</p>
+	{% if ob1.datum_rezervacije < ob2.datum_rezervacije %}
+		<h2>ob2 je veci od ob1 - {{ ob2.datum_rezervacije }} > {{ ob1.datum_rezervacije }}</h2>
+	{% endif %}
+	{% if ob1.datum_rezervacije > ob2.datum_rezervacije %}
+		<h2>ob1 je veci od ob2 - {{ ob1.datum_rezervacije }} > {{ ob2.datum_rezervacije }}</h2>
+	{% endif %}
+
+	{% if ob2.datum_rezervacije > dan %}
+		<h2>ob2 je veci od danas- {{ ob2.datum_rezervacije }} > {{ dan }}</h2>
+	{% endif %}
+	{% if ob2.datum_rezervacije < dan %}
+		<h2>danas je veci od ob2 - {{ dan }} > {{ ob2.datum_rezervacije }}</h2>
+	{% endif %}
+	<br><br><br><br><br>
+
+	<p>DATUM {{ datum_rezervacije }}</p>
+	<br><br>
+
+	{% if ob2.datum_rezervacije > datum_rezervacije %}
+		<h2>ob2 je veci od DATUMA - {{ ob2.datum_rezervacije }} > {{ datum_rezervacije }}</h2>
+	{% endif %}
+	{% if ob2.datum_rezervacije < datum_rezervacije %}
+		<h2>DATUM je veci od ob2 - {{ datum_rezervacije }} > {{ ob2.datum_rezervacije }}</h2>
+	{% endif %}
+
+	<br><br><br><br><br>
+
+	{% if ob1.datum_rezervacije > datum_rezervacije %}
+		<h2>ob1 je veci od DATUMA - {{ ob1.datum_rezervacije }} > {{ datum_rezervacije }}</h2>
+	{% endif %}
+	{% if ob1.datum_rezervacije < datum_rezervacije %}
+		<h2>DATUM je veci od ob1 - {{ datum_rezervacije }} > {{ ob1.datum_rezervacije }}</h2>
+	{% endif %}
+
+
+	<br><br><br><br><br>
+	{% for ooo in m_i_s %}
+	<p>{{ ooo.stol.broj_stola }}</p>
+	{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+{% extends "baza.html" %}
+{% load static %}
+{% block selected %}
+	<li><a href="{% url 'home' %}">Pocetna</a></li>
+	<li class="selected"><a href="{% url 'o_nama' %}">O nama</a></li>
+	<li><a href="{% url 'jelovnik' %}">Jelovnik</a></li>
+	<li><a href="{% url 'vina' %}">Vina</a></li>
+	<li><a href="{% url 'prva' %}">Rezervacija</a></li>
+	<li><a href="{% url 'email' %}">Kontakt</a></li>
+{% endblock %}
+{% block informacije %}
+	<p>Za vise informacija kliknite na link ispod.<br/><a href="{% url 'kontakt' %}">Procitaj vise</a></p>
+{% endblock %}
+{% block sredina %}
+<div id="content">
+	<h1>Restoran Maslina</h1>
+	<p>Restoran Maslina pravo je mjesto za sve ljubitelje vrhunske hrane i kvalitetnih vina. Idealan je za poslovne sastanke i ugodno druženje, kao i za različite proslave i evente. Profesionalno osoblje restorana Maslina, od pomno odabranih svježih namirnica, svakodnevno spravlja najukusnija jela iz šarolikog jelovnika, a tu je i bogata dnevna ponuda gotovih jela po pristupačnim cijenama. U ponudi se nalazi čitav niz jela od mesa, maštovitih salata, slasnih tjestenina te ukusnih pizza. Da bi gastronomski užitak bio potpun, možete kušati neka od mnogobrojnih domaćih i stranih vina te uživati u glazbi uživo u večernjim satima. Moderno dizajniran ambijent, ljubazno osoblje i vrsni kuhari učinit će vaš boravak u restoranu Maslina doživljajem kojeg ćete ubrzo htjeti ponoviti. Važno je naglasiti kako restoran nudi besplatnu dostavu na kućnu adresu na području Mostara po povoljnijim cijenama, uz napomenu da u dostavu nisu uključena sva jela iz raznolike restoranske ponude.</p>
+	<img height="400" width="600" src="{% static 'img4.jpg' %}"/>
+</div>
+{% endblock %}

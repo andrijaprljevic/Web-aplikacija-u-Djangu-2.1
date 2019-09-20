@@ -1,0 +1,38 @@
+{% extends "baza.html" %}
+{% block selected %}
+	<li><a href="{% url 'home' %}">Pocetna</a></li>
+	<li><a href="{% url 'o_nama' %}">O nama</a></li>
+	<li><a href="{% url 'jelovnik' %}">Jelovnik</a></li>
+	<li><a href="{% url 'vina' %}">Vina</a></li>
+	<li><a href="{% url 'prva' %}">Rezervacija</a></li>
+	<li><a href="{% url 'email' %}">Kontakt</a></li>
+{% endblock %}
+{% block sredina %}
+<div id="content">
+<h1>Informacije</h1>
+<h3>Kapacitet</h3>
+<ul>
+<li>70 unutra + 80 vani</li>
+</ul>
+<h3>Kuhinja:</h3>
+<ul>
+<li>Internacionalna</li>
+<li>Mediteranska</li>
+<li>Hercegovacka</li>
+</ul>
+<h3>Dostava:</h3>
+<ul>
+<li>Da (od 9:30 do 22:00)</li>
+</ul>
+<h3>Kontakt:</h3>
+<ul>
+<li>Telefon: +387 (36) 327 879</li>
+<li>FAX: +387 (36) 327 879</li>
+<li>GSM: +387 (63) 600 777</li>
+{% for qs1 in qs_gradovi %}
+<li>Grad: {{ qs1.ime_grada }} - Adresa: {{ qs1.adresa_restorana }}</li>
+{% endfor %}
+<li>E-mail: restoranmaslina@yahoo.com</li>
+</ul>
+</div>
+{% endblock %}

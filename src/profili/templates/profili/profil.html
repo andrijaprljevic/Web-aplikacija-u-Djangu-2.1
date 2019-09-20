@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="hr">
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{ tittle }}</title>
+	{% load static %}
+	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+	<link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+	<link href="{% static 'css/animate.css' %}" rel="stylesheet">
+	<script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/script.js' %}"></script>
+	<script src="{% static 'js/jquery.appear.js' %}"></script>
+	<script src="{% static 'js/jqBootstrapValidation.js' %}"></script>
+	<script src="{% static 'js/modernizr.custom.js' %}"></script>
+	<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+	<style>
+		html, body{
+			margin: 0 !important;
+			padding: 0 !important;
+			width: 100%;
+			overflow-x: hidden;
+		}
+		#za_mis:hover{
+			background-color: rgba(0, 0, 0, 0.4);
+			border-radius: 0px;
+			margin:0px;
+		}
+		body{
+			background-image: url({% static 'cover.jpg' %});
+			background-repeat: no-repeat;
+			background-size: cover; 
+		}
+		#bjela{
+			color: white;
+			font-size: 110%;
+		}
+		.well{
+			width: 40%;
+			border-radius: 25px;
+		}
+	</style>
+</head>
+<body>
+<section id="logo-section">
+	<div class="container" style="width: fixed;">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="logo" style="margin-top: 20px;">
+					<a href="{% url 'home' %}"></a>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div id="korisnik" class="pull-right">
+					<span class="poruka">Prijavljeni ste kao</span> <a href="." style="color: #4B0082;"><i style="font-size:1.73em; padding: 10px; color: #4B0082;" class="fa fa-user" ></i>{{ request.user.username }}</a> | <a href="{% url 'odjava' %}" style="color: #4B0082;"><i style="font-size:1.73em; color: #4B0082; padding: 10px;" class="fa fa-sign-out" ></i>Odjava</a> | <br>
+					<a class="btn btn-primary" href="{% url 'home' %}">Povratak na glavnu stranicu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<br><br>
+<div class="row" style="margin-left: 70px;">
+	<div class="col-md-12">
+		<div class="main container-fluid well col-lg-4" style="color: #bbb; background-color: rgba(0, 0, 0, 0.6); padding: 20px;">
+			<div class="row-fluid" >
+				<div class="col-lg-3">
+					<img src="{% static 'slika_za_profila.png' %}" class="img-circle img-responsive">
+				</div>
+				<div class="col-lg-6">
+					<h2 style="color:white;">Vaš {{ tittle }}</h2>
+					<h5 id="bjela"><i>Username: </i><b>{{ request.user.username }}</b></h5>
+					<h5 id="bjela"><i>Ime: </i><b>{{ request.user.first_name }}</b></h5>
+					<h5 id="bjela"><i>Prezime: </i><b>{{ request.user.last_name }}</b></h5>
+					<h5 id="bjela"><i>Email: </i><b>{{ request.user.email }}</b></h5>
+				</div>
+
+				<div class="col-lg-3">
+					<div class="btn-group">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+							<i class="glyphicon glyphicon-cog glyphicon-white"></i>
+							<i class="caret"></i>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="{% url 'azuriraj' %}" id="za_mis"><b> Ažuriraj profil </b></a></li>
+							<li><a href="type="button" id="za_mis" class="btn" data-toggle="modal" data-target="#obrisiProfilModal"><b>Deaktiviraj profil </b></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row" style="margin-left: 70px;">
+	<div class="col-md-12">
+		<div class="main container-fluid well col-lg-4" style="color: #bbb; background-color: rgba(0, 0, 0, 0.6); padding: 20px;">
+			<div class="row-fluid">
+				<h2 style="text-align:center; color:white;">Vaše rezervacije</h2>
+				{% if messages %}
+				<br>
+				<ul class="messages">
+    				{% for message in messages %}
+    				<li{% if message.tags %} class="alert alert-success {{ message.tags }}"{% endif %}>{{ message }}</li>
+    				{% endfor %}
+				</ul><br>
+   				{% endif %}
+				<br><br><hr style="color: white;">
+				{% if rez_br < 1 %}
+					<h4 style="color:white;">Nemate rezervacija!</h4>
+				{% else %}
+				{% for rez in rez_kor %}
+					<table><tr>
+						<td id="bjela"><i>Datum rezervacije: </i><b>{{ rez.datum_rezervacije }}</b><br>
+							<i>Početak: </i><b>{{ rez.pocetak_rezervacije }} : 00 sati</b><br>
+							<i>Kraj: </i><b>{{ rez.kraj_rezervacije }} : 00 sati</b><br><br>
+							<a href="type="button" class="btn btn-primary" data-toggle="modal" data-target="#obrisiRezervaciju{{ forloop.counter }}Modal"><i style= "padding: 0px" class="glyphicon glyphicon-trash"><i><b> Obriši rezervaciju</b></i></a></td>
+						<td id="bjela"><br><i>Broj stola: </i><b>{{ rez.stol.broj_stola }}</b><br>
+							<i>Broj stolica: </i><b>{{ rez.stol.broj_stolica }}</b><br>
+							<i>Lokacija: </i><b>{{ rez.stol.lokacija.ime_grada }}</b><br>
+							<i>Adresa: </i><b>{{ rez.stol.lokacija.adresa_restorana }}</b></td>
+						</tr>
+					</table><br><br><br><hr style="color: white;">
+				{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade customModal" id="obrisiProfilModal" tabindex="-1" role="dialog" aria-labelledby="obrisiProfilModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-body">
+				<h1>Jeste li sigurni da želite deaktivirati profil?</h1>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Ne</button>
+				<a href="{% url 'deaktiviraj' %}" class="btn btn-primary">Da</a>
+			</div>
+		</div>
+	</div>
+</div>
+{% if rez_br > 0 %}
+{% for rez in rez_kor %}
+<div class="modal fade customModal" id="obrisiRezervaciju{{ forloop.counter }}Modal" tabindex="-1" role="dialog" aria-labelledby="obrisiRezervacijuModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+		<form class="form-horizontal" action="{% url 'obrisi_rezervaciju' %}" method="post">
+			{% csrf_token %}
+			<div class="modal-body">
+				<h1>Jeste li sigurni da želite obrisati ovu rezervaciju?</h1>
+			</div>
+			<input type="hidden" name="kljuc_rezervacije" value="{{ rez.id }}">
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Ne</button>
+				<button type="submit" class="btn btn-primary">Da</button>
+			</div>
+		</form>
+		</div>
+	</div>
+</div>
+{% endfor %}
+{% endif %}
+</body>
+</html>

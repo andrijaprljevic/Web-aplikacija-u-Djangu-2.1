@@ -1,0 +1,47 @@
+{% extends "profili/forma.html" %}
+{% block stilovi %}
+{% load static %}
+<style>
+	.vertical-center {
+		min-height: 100%;
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		background-image: url("{% static 'rezervacija_restoran.png' %}");
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-color: #cccccc;
+	}
+	.control-label{
+		color: white;
+	}	
+	.col-md-5{
+		background-color: rgba(0, 0, 0, 0.9);
+		border-radius: 75px;
+		width: 50%;
+	}	
+	.col-md-5:hover{
+		background-color: rgba(0, 0, 0, 0.9);
+	}	
+	.container{
+		margin-left: 33%;
+	}
+	.btn{
+		margin-bottom: 15px;
+	}
+	#eerror{
+		color: red;
+		font-weight: bold;
+		font-size: 200%;
+	}
+</style>
+{% endblock %}
+{% block rez_forma %}
+<div class="container">
+<div class="row">
+<div class="col-md-5">
+
+<br>
+<p id="eerror" role="alert">Podatci koje ste unijeli nisu valjani.</p><br>
+<a class="btn btn-primary" href="{% url 'home' %}">Glavna stranica</a>
+{% endblock %}

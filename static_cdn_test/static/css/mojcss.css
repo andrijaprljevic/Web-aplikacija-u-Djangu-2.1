@@ -1,0 +1,108 @@
+
+
+* {
+	box-sizing: border box;
+}
+
+html {
+
+}
+
+.row {
+	height: 60px !important;
+	text-align: center;
+}
+
+body, html {
+	height: 100%;
+	width: 100%;
+	margin: 0px;
+}
+
+#tijelo {
+	background-image: url("restoran.png");
+	background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	height: 100%;
+	width: 100%;
+}
+
+#linkovi{
+	font-size: 18px;
+	font-weight: bold;
+	color: white;
+	padding-top:5px;
+    padding-bottom:5px;
+
+}
+
+#div_linkovi_1 {
+	color: white;
+	text-align: center;
+	border: 1px solid white;
+	float: right;
+	height: 50%;
+	background-color: black;
+}
+
+#div_linkovi_3 {
+	
+	text-align: center !important;
+	border: 1px solid white !important;
+	float: right !important;
+	height: 50% !important;
+	background-color: black !important;
+}
+
+#div_linkovi_1:hover,#div_linkovi_2:hover{
+	background-color: red;
+	color: blue;
+}
+
+#div_linkovi_2 {
+	
+	text-align: center;
+	border: 1px solid white;
+	float: right;
+	height: 50%;
+	background-color: black;
+	
+}
+
+table {
+	aling: right;
+	
+}
+
+h1 {
+	color: white;
+}
+
+#naslov {
+	
+	position: relative;
+	text-align: center;
+
+	background-color: black;
+	border-radius: 15px;
+}
+
+#clanovi_tima {
+	text-align: center;
+	color: white;
+	height: 200px;
+	width: 150px;
+	background-color: black;
+	position: static;
+	border-radius: 15px;
+	padding: 0px;
+}
+
+
+
+#za_povratak{
+	text-align: center;
+	border: 1px solid black;
+	background-color: red;
+}
