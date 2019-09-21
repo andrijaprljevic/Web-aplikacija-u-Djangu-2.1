@@ -1,7 +1,11 @@
 from datetime import date, timedelta
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models import Exists, OuterRef, Q
+from django.db.models import (
+	Exists,
+	OuterRef,
+	Q,
+	)
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.dateparse import parse_date
 
@@ -51,6 +55,8 @@ def druga_rezervacija_view(request):
 	ee3 = int(ee2)
 	bb3 = int(bb2)
 
+	korisnik = request.user
+
 	if bb3 >= ee3:
 		return redirect('greska')
 	if bb3 < 8 or bb3 > 22:
@@ -62,10 +68,15 @@ def druga_rezervacija_view(request):
 	datum_rez = parse_date(datum_string)
 
 	rezer1 = Rezervacija.objects.filter(
-		Q(kraj_rezervacije__lte = poc) | Q(pocetak_rezervacije__gte = kraj),
+		kraj_rezervacije__lte = poc,
+		stol = OuterRef('pk'),
+		datum_rezervacije = datum_rez,
+		) | Rezervacija.objects.filter(
+		pocetak_rezervacije__gte = kraj,
 		stol = OuterRef('pk'),
 		datum_rezervacije = datum_rez,
 		)
+
 	rezer2 = Rezervacija.objects.filter(
 		stol = OuterRef('pk'),
 		datum_rezervacije = datum_rez,
@@ -74,7 +85,7 @@ def druga_rezervacija_view(request):
 	drugi_qs = Stol.objects.annotate(nepostoji = Exists(rezer2)).filter(nepostoji = False, lokacija__id = grad_kljuc, broj_stolica = br_stolica)
 	zajedno_qs = prvi_qs | drugi_qs
 	pravi_qs = zajedno_qs.order_by('broj_stola')
-	zbroj_qs = pravi_qs.count()
+	zbroj_qs = zajedno_qs.count()
 
 	context = {"tittle": tittle,"datum_rez": datum_rez,
 	"br_stolica": br_stolica,"poc":poc,"kraj": kraj,
@@ -125,7 +136,6 @@ def zadnja_rezervacija_view(request):
 					return redirect('home')
 
 				ako_postoji = Rezervacija.objects.filter(
-					korisnik = korisnik,
 					stol = uhvati_stol,
 					datum_rezervacije = promjeni_datum,
 					pocetak_rezervacije = form.cleaned_data.get('post_pocetak2'),
