@@ -55,6 +55,9 @@ def druga_rezervacija_view(request):
 	ee3 = int(ee2)
 	bb3 = int(bb2)
 
+	eend = ee3 - 1
+	bbeg = bb3 + 1
+
 	korisnik = request.user
 
 	if bb3 >= ee3:
@@ -67,25 +70,77 @@ def druga_rezervacija_view(request):
 	grad = Lokacija.objects.get(id = grad_kljuc)
 	datum_rez = parse_date(datum_string)
 
-	rezer1 = Rezervacija.objects.filter(
-		kraj_rezervacije__lte = poc,
-		stol = OuterRef('pk'),
-		datum_rezervacije = datum_rez,
-		) | Rezervacija.objects.filter(
-		pocetak_rezervacije__gte = kraj,
-		stol = OuterRef('pk'),
-		datum_rezervacije = datum_rez,
-		)
+	svi_stolovi = Stol.objects.filter(lokacija__id = grad_kljuc, broj_stolica = br_stolica)
+
+
+
+	#ajmo1 = Rezervacija.objects.filter(datum_rezervacije = datum_rez, kraj_rezervacije__lte = bb3).values_list('stol_id', flat=True)
+	#ajmo2 = Rezervacija.objects.filter(datum_rezervacije = datum_rez, pocetak_rezervacije__gte = ee3).values_list('stol_id', flat=True)
+
+	izbaci_ga_zajedno = Rezervacija.objects.filter(Q(kraj_rezervacije__range = (bbeg, ee3)) | Q(pocetak_rezervacije__range = (bb3, eend)), datum_rezervacije = datum_rez)
+	izbaci_qs = izbaci_ga_zajedno.count()
+
+	izbaci_ga = Rezervacija.objects.filter(Q(kraj_rezervacije__range = (bbeg, ee3)) | Q(pocetak_rezervacije__range = (bb3, eend)), datum_rezervacije = datum_rez).values_list('stol_id', flat=True)
+
+	#stol_za_grad1 = Stol.objects.filter(lokacija__id = grad_kljuc, broj_stolica = br_stolica, id__in = ajmo1)
+	#stol_za_grad2 = Stol.objects.filter(lokacija__id = grad_kljuc, broj_stolica = br_stolica, id__in = ajmo2)
+
+	#prvi_qs = stol_za_grad1 | stol_za_grad2
+
+	if izbaci_qs > 0:
+		prvi_qs = svi_stolovi.exclude(id__in = izbaci_ga)
+		#prvi_qs1 = prvi_qs.exclude(id__in = izbaci_ga)
+		#prvi_qs = prvi_qs1
+	else:
+		prvi_qs = svi_stolovi
 
 	rezer2 = Rezervacija.objects.filter(
 		stol = OuterRef('pk'),
 		datum_rezervacije = datum_rez,
 		)
-	prvi_qs = Stol.objects.annotate(postoji = Exists(rezer1)).filter(postoji = True, lokacija__id = grad_kljuc, broj_stolica = br_stolica)
 	drugi_qs = Stol.objects.annotate(nepostoji = Exists(rezer2)).filter(nepostoji = False, lokacija__id = grad_kljuc, broj_stolica = br_stolica)
+
+	
 	zajedno_qs = prvi_qs | drugi_qs
+	#i = 0
+	#for instanca in stol_za_grad:
+		#pos_li[i] = Rezervacija.objects.filter(datum_rezervacije = datum_rez, kraj_rezervacije__lte = bb3)
+		#ne_li[i] = Rezervacija.objects.filter(datum_rezervacije = datum_rez, pocetak_rezervacije__gte = ee3)
+		#stol_ne[i] = Rezervacija.objects.filter(datum_rezervacije__gt = datum_rez) | instanca.rezervacija_set.filter(datum_rezervacije__lt = datum_rez)
+		#i = i + 1
+
+	#stol_postoji = pos_li | ne_li
+	#stol_nepostoji = stol_ne
+
+	#stol_postoji1 = Stol.rezervacija_set.filter(datum_rezervacije = datum_rez, kraj_rezervacije__lte = bb3)
+	#stol_postoji2 = Stol.rezervacija_set.filter(datum_rezervacije = datum_rez, pocetak_rezervacije__gte = ee3)
+	#stol_postoji = stol_postoji1 | stol_postoji2
+
+	#stol_nepostoji = Stol.rezervacija_set.exclude(datum_rezervacije = datum_rez)
+
+	#zajedno_qs = stol_postoji | stol_nepostoji
 	pravi_qs = zajedno_qs.order_by('broj_stola')
 	zbroj_qs = zajedno_qs.count()
+
+	#rezer1 = Rezervacija.objects.filter(
+		#kraj_rezervacije__lte = bb3,
+		#stol = OuterRef('pk'),
+		#datum_rezervacije = datum_rez,
+		#) | Rezervacija.objects.filter(
+		#pocetak_rezervacije__gte = ee3,
+		#stol = OuterRef('pk'),
+		#datum_rezervacije = datum_rez,
+		#)
+
+	#rezer2 = Rezervacija.objects.filter(
+		#stol = OuterRef('pk'),
+		#datum_rezervacije = datum_rez,
+		#)
+	#prvi_qs = Stol.objects.annotate(postoji = Exists(rezer1)).filter(postoji = True, lokacija__id = grad_kljuc, broj_stolica = br_stolica)
+	#drugi_qs = Stol.objects.annotate(nepostoji = Exists(rezer2)).filter(nepostoji = False, lokacija__id = grad_kljuc, broj_stolica = br_stolica)
+	#zajedno_qs = prvi_qs | drugi_qs
+	#pravi_qs = zajedno_qs.order_by('broj_stola')
+	#zbroj_qs = zajedno_qs.count()
 
 	context = {"tittle": tittle,"datum_rez": datum_rez,
 	"br_stolica": br_stolica,"poc":poc,"kraj": kraj,

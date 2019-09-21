@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"a",
+				"ajmo"
+			],
+			[
+				"aj",
+				"ajmo1"
+			],
+			[
+				"br",
+				"br_stolica"
+			],
+			[
+				"o",
+				"objects"
+			],
+			[
+				"stol_",
+				"stol_postoji1"
+			],
+			[
+				"rezer",
+				"rezervacija2"
+			],
+			[
+				"za",
+				"zajedno_qs"
+			],
+			[
 				"c",
 				"count"
 			],
@@ -180,10 +208,6 @@
 				"mjesec"
 			],
 			[
-				"o",
-				"obj2"
-			],
-			[
 				"broj_sto",
 				"broj_stolica"
 			],
@@ -223,17 +247,16 @@
 			"file": "src/rezervacije/views.py",
 			"settings":
 			{
-				"buffer_size": 7491,
+				"buffer_size": 9025,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "src/rezervacije/templates/rezervacije/rezervacija2.html",
+			"file": "src/rezervacije/models.py",
 			"settings":
 			{
-				"buffer_size": 3451,
-				"encoding": "UTF-8",
+				"buffer_size": 1382,
 				"line_ending": "Windows"
 			}
 		}
@@ -273,17 +296,15 @@
 		"/C/Users/RB Computer/Dev/djangorad",
 		"/C/Users/RB Computer/Dev/djangorad/src",
 		"/C/Users/RB Computer/Dev/djangorad/src/projekt",
-		"/C/Users/RB Computer/Dev/djangorad/src/rezervacije",
-		"/C/Users/RB Computer/Dev/djangorad/src/rezervacije/templates",
-		"/C/Users/RB Computer/Dev/djangorad/src/rezervacije/templates/rezervacije"
+		"/C/Users/RB Computer/Dev/djangorad/src/rezervacije"
 	],
 	"file_history":
 	[
 		"/C/Users/RB Computer/Dev/djangorad/src/rezervacije/views.py",
+		"/C/Users/RB Computer/Dev/djangorad/src/rezervacije/templates/rezervacije/rezervacija2.html",
 		"/C/Users/RB Computer/Dev/djangorad/src/projekt/urls.py",
 		"/C/Users/RB Computer/Dev/djangorad/src/rezervacije/forms.py",
 		"/C/Users/RB Computer/Dev/djangorad/src/rezervacije/models.py",
-		"/C/Users/RB Computer/Dev/djangorad/src/rezervacije/templates/rezervacije/rezervacija2.html",
 		"/C/Users/RB Computer/Dev/djangorad/src/sendemail/urls.py",
 		"/C/Users/RB Computer/Dev/djangorad/src/profili/views.py",
 		"/C/Users/RB Computer/Dev/djangorad/src/projekt/settings.py",
@@ -359,15 +380,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7491,
+						"buffer_size": 9025,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1995,
-								1995
+								2344,
+								2344
 							]
 						],
 						"settings":
@@ -376,7 +397,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1320.0,
+						"translation.y": 1140.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -384,28 +405,28 @@
 				},
 				{
 					"buffer": 1,
-					"file": "src/rezervacije/templates/rezervacije/rezervacija2.html",
+					"file": "src/rezervacije/models.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3451,
+						"buffer_size": 1382,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3451,
-								3451
+								1040,
+								1057
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"syntax": "Packages/Python/Python.sublime-syntax",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1046.4,
+						"translation.y": 8.8,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
