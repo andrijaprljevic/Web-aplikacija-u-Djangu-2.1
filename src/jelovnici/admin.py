@@ -6,8 +6,9 @@ from .models import Jelovnik
 
 
 class JelovnikAdmin(admin.ModelAdmin):
-	list_display = ('naziv', 'vrsta', 'cijena', 'sastojci', 'dnevna_ponuda')
+	list_display = ('naziv', 'id', 'vrsta', 'cijena', 'sastojci', 'dnevna_ponuda')
 	ordering = ('dnevna_ponuda', 'vrsta', 'naziv',)
 	search_fields = ('naziv', 'vrsta',)
+	readonly_fields = ('id',)
 
 admin.site.register(Jelovnik, JelovnikAdmin)

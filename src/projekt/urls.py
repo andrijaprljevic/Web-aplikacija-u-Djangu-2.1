@@ -18,8 +18,6 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 
 from rezervacije.views import (
-    test_view, 
-    test2_view,
     prva_rezervacija_view,
     druga_rezervacija_view,
     zadnja_rezervacija_view,
@@ -46,8 +44,7 @@ from jelovnici.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('test/', test_view, name = 'test'),
-    #path('test2/', test2_view, name ='test2'),
+
     path('registracija/', register_view, name ='registracija'),
     path('prijava/', login_view, name ='prijava'),
     path('odjava/', logout_view, name ='odjava'),
@@ -56,18 +53,19 @@ urlpatterns = [
     path('password/', change_password_view, name ='password'),
     path('deaktivacija/', deaktiviraj_view, name ='deaktiviraj'),
     path('obrisi_rezervaciju/', obrisi_rezervaciju_view, name ='obrisi_rezervaciju'),
-    #path('test2/', test2_view, name ='test2'),
+
     path('rezervacija/', prva_rezervacija_view, name ='prva'),
     path('odaberistol/', druga_rezervacija_view, name ='druga'),
     path('rezerviranje/', zadnja_rezervacija_view, name ='zadnja'),
     path('error/', greska_view, name ='greska'),
-    #path('test/', test_view, name = 'test'),
+
     path('o_nama/', o_nama_view, name ='o_nama'),
     path('jelovnik/', jelovnik_view, name ='jelovnik'),
     path('vina/', vina_view, name ='vina'),
-    path('detalji/<int:post_id>', detail_view),
+    path('detalji/<int:post_id>', detail_view, name ='detalji'),
     path('kontakt/', kontakt_view, name ='kontakt'),
     path('', home_view, name ='home'),
+
     path('', include('sendemail.urls')),
 ]
 

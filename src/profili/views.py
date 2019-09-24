@@ -73,7 +73,7 @@ def profil_view(request):
 
 	kor = request.user
 	rez_kor1 = Rezervacija.objects.filter(korisnik = kor)
-	rez_kor = rez_kor1.order_by('datum_rezervacije')
+	rez_kor = rez_kor1.order_by('datum_rezervacije', 'pocetak_rezervacije')
 	rez_br = rez_kor.count()
 
 	context = {

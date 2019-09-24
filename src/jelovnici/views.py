@@ -21,7 +21,7 @@ def o_nama_view(request):
 	return render(request, 'o_nama.html', context)
 
 def jelovnik_view(request):
-	tittle = "Restoran Maslina"
+	tittle = "Jelovnik"
 	qs_mesna1 = Jelovnik.objects.filter(vrsta__icontains = 'mesna')
 	qs_mesna = qs_mesna1.order_by('naziv')
 	qs_pizza1 = Jelovnik.objects.filter(vrsta__icontains = 'pizza')
@@ -40,7 +40,7 @@ def jelovnik_view(request):
 	return render(request, 'jelovnik.html', context)
 
 def vina_view(request):
-	tittle = "Restoran Maslina"
+	tittle = "Vina"
 	qs_vina = Jelovnik.objects.filter(vrsta__icontains = 'vino')
 	context = {
 		'qs_vina': qs_vina,

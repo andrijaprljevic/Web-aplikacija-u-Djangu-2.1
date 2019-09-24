@@ -40,7 +40,7 @@ tr:nth-child(even) {
 	</tr>
 	{% for qs in qs_mesna %}
 	<tr>
-		<td><a href="/detalji/{{ qs.id }}">{{ qs.naziv }} </a><i>{{ qs.sastojci }}</i></td>
+		<td><a href="{% url 'detalji' post_id=qs.id %}">{{ qs.naziv }} </a><i>{{ qs.sastojci }}</i></td>
 		<td></td>
 		<td>{{ qs.cijena }}</td>
 	</tr>
@@ -54,7 +54,7 @@ tr:nth-child(even) {
 	</tr>
 	{% for qs in qs_pizza %}
 	<tr>
-		<td><a href="/detalji/{{ qs.id }}">{{ qs.naziv }} </a><i>{{ qs.sastojci }}</i></td>
+		<td><a href="{% url 'detalji' post_id=qs.id %}">{{ qs.naziv }} </a><i>{{ qs.sastojci }}</i></td>
 		<td></td>
 		<td>{{ qs.cijena }}</td>
 	</tr>
@@ -68,7 +68,7 @@ tr:nth-child(even) {
 	</tr>
 	{% for qs in qs_rizota %}
 	<tr>
-		<td><a href="/detalji/{{ qs.id }}">{{ qs.naziv }} </a><i>{{ qs.sastojci }}</i></td>
+		<td><a href="{% url 'detalji' post_id=qs.id %}">{{ qs.naziv }} </a><i>{{ qs.sastojci }}</i></td>
 		<td></td>
 		<td>{{ qs.cijena }}</td>
 	</tr>
@@ -82,7 +82,7 @@ tr:nth-child(even) {
 	</tr>
 	{% for qs in qs_salate %}
 	<tr>
-		<td><a href="/detalji/{{ qs.id }}">{{ qs.naziv }} </a><i>{{ qs.sastojci }}</i></td>
+		<td><a href="{% url 'detalji' post_id=qs.id %}">{{ qs.naziv }} </a><i>{{ qs.sastojci }}</i></td>
 		<td></td>
 		<td>{{ qs.cijena }}</td>
 	</tr>

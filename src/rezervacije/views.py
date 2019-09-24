@@ -72,27 +72,21 @@ def druga_rezervacija_view(request):
 
 	svi_stolovi = Stol.objects.filter(lokacija__id = grad_kljuc, broj_stolica = br_stolica)
 
-
-
-	#ajmo1 = Rezervacija.objects.filter(datum_rezervacije = datum_rez, kraj_rezervacije__lte = bb3).values_list('stol_id', flat=True)
-	#ajmo2 = Rezervacija.objects.filter(datum_rezervacije = datum_rez, pocetak_rezervacije__gte = ee3).values_list('stol_id', flat=True)
-
 	izbaci_ga_zajedno = Rezervacija.objects.filter(Q(kraj_rezervacije__range = (bbeg, ee3)) | Q(pocetak_rezervacije__range = (bb3, eend)), datum_rezervacije = datum_rez)
 	izbaci_qs = izbaci_ga_zajedno.count()
-
 	izbaci_ga = Rezervacija.objects.filter(Q(kraj_rezervacije__range = (bbeg, ee3)) | Q(pocetak_rezervacije__range = (bb3, eend)), datum_rezervacije = datum_rez).values_list('stol_id', flat=True)
 
-	#stol_za_grad1 = Stol.objects.filter(lokacija__id = grad_kljuc, broj_stolica = br_stolica, id__in = ajmo1)
-	#stol_za_grad2 = Stol.objects.filter(lokacija__id = grad_kljuc, broj_stolica = br_stolica, id__in = ajmo2)
-
-	#prvi_qs = stol_za_grad1 | stol_za_grad2
+	izbaci_ga2_zajedno = Rezervacija.objects.filter(Q(kraj_rezervacije__gt = ee3) & Q(pocetak_rezervacije__lt = bb3), datum_rezervacije = datum_rez)
+	izbaci_ga2_qs = izbaci_ga2_zajedno.count()
+	izbaci_ga2 = Rezervacija.objects.filter(Q(kraj_rezervacije__gt = ee3) & Q(pocetak_rezervacije__lt = bb3), datum_rezervacije = datum_rez).values_list('stol_id', flat=True)
 
 	if izbaci_qs > 0:
 		prvi_qs = svi_stolovi.exclude(id__in = izbaci_ga)
-		#prvi_qs1 = prvi_qs.exclude(id__in = izbaci_ga)
-		#prvi_qs = prvi_qs1
 	else:
 		prvi_qs = svi_stolovi
+
+	if izbaci_ga2_qs > 0:
+		prvi_qs = prvi_qs.exclude(id__in = izbaci_ga2)
 
 	rezer2 = Rezervacija.objects.filter(
 		stol = OuterRef('pk'),
@@ -100,47 +94,11 @@ def druga_rezervacija_view(request):
 		)
 	drugi_qs = Stol.objects.annotate(nepostoji = Exists(rezer2)).filter(nepostoji = False, lokacija__id = grad_kljuc, broj_stolica = br_stolica)
 
-	
 	zajedno_qs = prvi_qs | drugi_qs
-	#i = 0
-	#for instanca in stol_za_grad:
-		#pos_li[i] = Rezervacija.objects.filter(datum_rezervacije = datum_rez, kraj_rezervacije__lte = bb3)
-		#ne_li[i] = Rezervacija.objects.filter(datum_rezervacije = datum_rez, pocetak_rezervacije__gte = ee3)
-		#stol_ne[i] = Rezervacija.objects.filter(datum_rezervacije__gt = datum_rez) | instanca.rezervacija_set.filter(datum_rezervacije__lt = datum_rez)
-		#i = i + 1
 
-	#stol_postoji = pos_li | ne_li
-	#stol_nepostoji = stol_ne
-
-	#stol_postoji1 = Stol.rezervacija_set.filter(datum_rezervacije = datum_rez, kraj_rezervacije__lte = bb3)
-	#stol_postoji2 = Stol.rezervacija_set.filter(datum_rezervacije = datum_rez, pocetak_rezervacije__gte = ee3)
-	#stol_postoji = stol_postoji1 | stol_postoji2
-
-	#stol_nepostoji = Stol.rezervacija_set.exclude(datum_rezervacije = datum_rez)
-
-	#zajedno_qs = stol_postoji | stol_nepostoji
 	pravi_qs = zajedno_qs.order_by('broj_stola')
+	pravi_qs = pravi_qs.distinct()
 	zbroj_qs = zajedno_qs.count()
-
-	#rezer1 = Rezervacija.objects.filter(
-		#kraj_rezervacije__lte = bb3,
-		#stol = OuterRef('pk'),
-		#datum_rezervacije = datum_rez,
-		#) | Rezervacija.objects.filter(
-		#pocetak_rezervacije__gte = ee3,
-		#stol = OuterRef('pk'),
-		#datum_rezervacije = datum_rez,
-		#)
-
-	#rezer2 = Rezervacija.objects.filter(
-		#stol = OuterRef('pk'),
-		#datum_rezervacije = datum_rez,
-		#)
-	#prvi_qs = Stol.objects.annotate(postoji = Exists(rezer1)).filter(postoji = True, lokacija__id = grad_kljuc, broj_stolica = br_stolica)
-	#drugi_qs = Stol.objects.annotate(nepostoji = Exists(rezer2)).filter(nepostoji = False, lokacija__id = grad_kljuc, broj_stolica = br_stolica)
-	#zajedno_qs = prvi_qs | drugi_qs
-	#pravi_qs = zajedno_qs.order_by('broj_stola')
-	#zbroj_qs = zajedno_qs.count()
 
 	context = {"tittle": tittle,"datum_rez": datum_rez,
 	"br_stolica": br_stolica,"poc":poc,"kraj": kraj,
@@ -220,88 +178,3 @@ def greska_view(request):
 	context = {"tittle": tittle}
 	return render(request, template_name, context)
 	
-
-
-
-
-def test_view(request):
-	template_name = 'test.html'
-	obj1 = get_object_or_404(Rezervacija, id = 1)
-	obj2 = get_object_or_404(Rezervacija, id = 2)
-	obj_stol_br = get_object_or_404(Rezervacija, stol__broj_stola = 18)
-	mostarski = Rezervacija.objects.filter(stol__lokacija__ime_grada__iexact = 'mostar')
-	siroki = Rezervacija.objects.filter(stol__lokacija__ime_grada__icontains = 'brijeg')
-	danas = date.today()
-	sutra = danas + timedelta(days=1)
-	mjesec = danas + timedelta(days=60)
-
-	primjer = danas
-
-	#primjer.strftime('%Y-X%m-X%d').replace('X0','X').replace('X','')
-
-	mostarski_i_siroki = mostarski | siroki
-	m_i_s = mostarski_i_siroki.order_by('-stol__broj_stola')
-
-	#d = date(2019-9-18)
-	datum_rezervacije2 = request.POST.get('datum_rezervacije')
-	datum_rezervacijehahaha = parse_date(datum_rezervacije2)
-	#datum_rezervacije.strftime('%Y-X%m-X%d').replace('X0','X').replace('X','')
-
-	p = 18
-	k = 20
-	st = 2
-	stolhh = Stol.objects.filter(broj_stolica = st, lokacija__ime_grada__icontains = 'siroki').first()
-	korisnik = request.user
-
-	kreiranje = Rezervacija.objects.create(
-		korisnik = korisnik,
-		stol = stolhh,
-		datum_rezervacije = datum_rezervacijehahaha,
-		pocetak_rezervacije = p,
-		kraj_rezervacije = k
-		)
-
-	context = {"ob1": obj1, "ob2": obj2, "dan": danas, 
-				"sutra": sutra, "mjesec": mjesec, 
-				"objekt": obj_stol_br, "mostarski": mostarski, 
-				"siroki": siroki, "m_i_s": m_i_s,
-				"bez_nule": primjer, "datum_rezervacije": datum_rezervacijehahaha
-				}
-
-	return render(request, template_name, context)
-
-
-
-def test2_view(request):
-	template_name = 'test2.html'
-	obj1 = get_object_or_404(Rezervacija, id = 1)
-	obj2 = get_object_or_404(Rezervacija, id = 2)
-	obj_stol_br = get_object_or_404(Rezervacija, stol__broj_stola = 18)
-	mostarski = Rezervacija.objects.filter(stol__lokacija__ime_grada__iexact = 'mostar')
-	siroki = Rezervacija.objects.filter(stol__lokacija__ime_grada__icontains = 'brijeg')
-	danas = date.today()
-	sutra = danas + timedelta(days=1)
-	mjesec = danas + timedelta(days=60)
-
-	primjer = danas
-
-	#primjer.strftime('%Y-X%m-X%d').replace('X0','X').replace('X','')
-
-	mostarski_i_siroki = mostarski | siroki
-	m_i_s = mostarski_i_siroki.order_by('-stol__broj_stola')
-
-	#d = date(2019-9-18)
-	p = 18
-	k = 20
-	st = 6
-
-
-
-	context = {"ob1": obj1, "ob2": obj2, "dan": danas, 
-				"sutra": sutra, "mjesec": mjesec, 
-				"objekt": obj_stol_br, "mostarski": mostarski, 
-				"siroki": siroki, "m_i_s": m_i_s,
-				"bez_nule": primjer
-				}
-
-	return render(request, template_name, context)
