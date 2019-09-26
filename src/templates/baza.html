@@ -46,6 +46,9 @@ body, html {
 			</div>
 			<div id="menubar">
 				<ul id="menu">
+					{% if request.user.is_staff %}
+					<li><a href="{% url 'arhivacija' %}"><i style="color:white;" class="fa fa-trash"></i> Arhivacija</a></li>
+					{% endif %}
 					{% block selected %}
 					<p>za selected</p>
 					{% endblock %}

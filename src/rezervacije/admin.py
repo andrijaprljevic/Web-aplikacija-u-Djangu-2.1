@@ -28,7 +28,7 @@ class StolAdmin(admin.ModelAdmin):
 class RezervacijaAdmin(admin.ModelAdmin):
 	list_display = ('korisnik','datum_rezervacije', 'pocetak_rezervacije', 'kraj_rezervacije', 'stol', 'id', 'timestamp')
 	ordering = ('timestamp',)
-	search_fields = ('korisnik__username', 'stol__lokacija__ime_grada',)
+	search_fields = ('korisnik__username', 'stol__lokacija__ime_grada', 'datum_rezervacije',)
 	readonly_fields = ('id',)
 
 admin.site.register(Lokacija, LokacijaAdmin)

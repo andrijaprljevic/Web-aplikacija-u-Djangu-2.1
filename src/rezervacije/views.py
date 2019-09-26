@@ -1,6 +1,7 @@
 from datetime import date, timedelta
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import (
 	Exists,
 	OuterRef,
@@ -27,7 +28,13 @@ def prva_rezervacija_view(request):
 	dvamjeseca = danas + timedelta(days=60)
 	sve_lokacije = Lokacija.objects.all()
 	gost = request.user
-	br_rez = Rezervacija.objects.filter(korisnik__id = gost.id).count()
+	sve_rez = Rezervacija.objects.filter(korisnik__id = gost.id)
+	danas2 = date.today()
+	for jedna in sve_rez:
+		if jedna.datum_rezervacije < danas2:
+			jedna.delete()
+	nove_rez = Rezervacija.objects.filter(korisnik__id = gost.id)
+	br_rez = nove_rez.count()
 
 	context = {"danas": danas,"tittle": tittle,
 	"sutra": sutra,"dvamjeseca": dvamjeseca,
@@ -177,4 +184,14 @@ def greska_view(request):
 	tittle = 'Error'
 	context = {"tittle": tittle}
 	return render(request, template_name, context)
-	
+
+
+@staff_member_required
+def arhiviraj_view(request):
+	sve_rezervacije = Rezervacija.objects.all()
+	danas3 = date.today()
+	for jedno in sve_rezervacije:
+		if jedno.datum_rezervacije < danas3:
+			jedno.delete()
+	messages.success(request, ('Istekle rezervacije su uspjesno obrisane!'))
+	return redirect('profil')

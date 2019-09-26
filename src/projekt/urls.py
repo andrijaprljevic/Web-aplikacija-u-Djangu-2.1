@@ -22,6 +22,7 @@ from rezervacije.views import (
     druga_rezervacija_view,
     zadnja_rezervacija_view,
     greska_view,
+    arhiviraj_view,
 )
 from profili.views import (
     login_view,
@@ -58,6 +59,7 @@ urlpatterns = [
     path('odaberistol/', druga_rezervacija_view, name ='druga'),
     path('rezerviranje/', zadnja_rezervacija_view, name ='zadnja'),
     path('error/', greska_view, name ='greska'),
+    path('arhiviraj_rezervacije/', arhiviraj_view, name ='arhivacija'),
 
     path('o_nama/', o_nama_view, name ='o_nama'),
     path('jelovnik/', jelovnik_view, name ='jelovnik'),

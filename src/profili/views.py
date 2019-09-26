@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 from django.contrib import messages
 from django.contrib.auth import (
 	authenticate,
@@ -72,6 +73,11 @@ def profil_view(request):
 	tittle = 'Profil'
 
 	kor = request.user
+	sve_rez = Rezervacija.objects.filter(korisnik__id = kor.id)
+	danas2 = date.today()
+	for jedna in sve_rez:
+		if jedna.datum_rezervacije < danas2:
+			jedna.delete()
 	rez_kor1 = Rezervacija.objects.filter(korisnik = kor)
 	rez_kor = rez_kor1.order_by('datum_rezervacije', 'pocetak_rezervacije')
 	rez_br = rez_kor.count()
@@ -107,10 +113,15 @@ def obrisi_rezervaciju_view(request):
 
 	creator = request.user
 	qs_izbrisi_rezervaciju = get_object_or_404(Rezervacija, id = kljuc_od_rezervacije)
+	danas1 = date.today()
 	if qs_izbrisi_rezervaciju.korisnik == creator:
-		qs_izbrisi_rezervaciju.delete()
-		messages.success(request, ('Rezervacija je uspjesno obrisana!'))
-		return redirect('profil')
+		if qs_izbrisi_rezervaciju.datum_rezervacije == danas1:
+			messages.success(request, ('Ne možete više obrisati rezervaciju.'))
+			return redirect('profil')
+		else:
+			qs_izbrisi_rezervaciju.delete()
+			messages.success(request, ('Rezervacija je uspjesno obrisana!'))
+			return redirect('profil')
 
 	return redirect('greska')
 
